@@ -6,6 +6,13 @@ def write(filename: str, data: str):
     with open(filename, mode='w+', encoding='utf-8') as f:
         f.write(data)
 
+def read(filename: str):
+    contents = ""
+    with open(filename, mode='r', encoding='utf-8') as f:
+        contents = f.read()
+
+    return contents
+
 def is_valid_url(url: str) -> bool:
     try:
         result = urlparse(url)

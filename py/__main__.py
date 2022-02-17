@@ -1,8 +1,9 @@
 import sys
+from http.server import  HTTPServer
 
-import py.fetch as fetch
 from py.processors import Browser
 from py.stripper import Medium
+from py.server import MyServer
 import py.utils as ut
 
 
@@ -23,14 +24,37 @@ def render_page(url: str):
     br.open(fname) 
 
 
+def start_server():
+    hostName = "localhost"
+    serverPort = 8741 
+
+    webServer = HTTPServer((hostName, serverPort), MyServer)
+    print("Server started http://%s:%s" % (hostName, serverPort))
+
+    try:
+        webServer.serve_forever()
+    except KeyboardInterrupt:
+        pass
+
+    webServer.server_close()
+    print("Server stopped.")
 
 if __name__ == "__main__":
-    url = sys.argv[1]
-    if not url:
-        print("url not provided")
+    command = sys.argv[1]
+    
+    if not command:
+        print("invalid command, either url or command not provided")
         sys.exit(1)
-    if not ut.is_valid_url(url):
-        print("invalid url")
-        sys.exit(2)
 
-    render_page(url)
+    if ut.is_valid_url(command):
+        render_page(url)
+        sys.exit(0)
+
+    if command == "server":
+        start_server()
+        sys.exit(0)
+    
+    print("invalid command, either url or command not provided")
+    sys.exit(2)
+
+
