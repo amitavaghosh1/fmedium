@@ -47,7 +47,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if ut.is_valid_url(command):
-        render_page(url)
+        render_page(command)
         sys.exit(0)
 
     if command == "server":
