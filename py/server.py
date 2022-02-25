@@ -17,7 +17,7 @@ class MyServer(BaseHTTPRequestHandler):
             self.send_response(400)
             self.send_header("Content-type", "text/html")
             self.end_headers()
-            self.wfile.write(bytes("invalid url"))
+            self.wfile.write(bytes("invalid url",'utf-8'))
             return
 
         self.send_response(200)
@@ -37,6 +37,7 @@ class MyServer(BaseHTTPRequestHandler):
         v =  m.strip_scripts_with_src(data)
         ut.write(fname, v)
 
-        self.wfile.write(bytes(v))
+        # print(v, "v")
+        self.wfile.write(bytes(v,'utf-8'))
 
 
