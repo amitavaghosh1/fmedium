@@ -2,7 +2,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
 
 from py.processors import Browser
-from py.stripper import Medium
+from py.stripper import Medium, Others
 import py.utils as ut
 
 
@@ -34,10 +34,14 @@ class MyServer(BaseHTTPRequestHandler):
         # ut.write('/tmp/test.html', data)
 
         m = Medium()
+        if "medium" not in url:
+            print("using non medium, stripping all script tags")
+            m = Others()
         v =  m.strip_scripts_with_src(data)
         ut.write(fname, v)
 
         # print(v, "v")
-        self.wfile.write(bytes(v,'utf-8'))
+
+        self.wfile.write(ut.read(fname).encode('utf-8'))
 
 
