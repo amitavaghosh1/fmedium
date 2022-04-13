@@ -25,7 +25,7 @@ def render_page(url: str):
 
 
 def start_server():
-    hostName = "localhost"
+    hostName = "0.0.0.0"
     serverPort = 8741 
 
     webServer = HTTPServer((hostName, serverPort), MyServer)
